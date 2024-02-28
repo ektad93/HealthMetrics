@@ -1,5 +1,5 @@
 # HealthMetrics
-HealthMetrics showing Bar graphs and other useful charts
+HealthMetrics showing Bar graphs and other useful charts about Health data
 
 ============================
 We server our Front end App using XAMPP

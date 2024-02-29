@@ -2,12 +2,16 @@
 HealthMetrics showing Bar graphs and other useful charts about Health data
 
 ============================
-We server our Front end App using XAMPP
+We use  XAMPP server for Front end
+
 https://www.apachefriends.org/download.html
+
 
 Frontend tech:   ApexCharts, Javascript, Bootstrap, HTML
 
+
 https://apexcharts.com/javascript-chart-demos/
+
 
 
 

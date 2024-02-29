@@ -23,7 +23,10 @@
         <div class="content">
             <div class="box">
                 <h2>Welcome to the Health Analytix</h2>
+                <div class="charts-container">
                 <div id="chart"></div>
+                <div id="chart1"></div>
+                </div>
             </div>
             <div class="box">
                 <div id="filterForm">
@@ -72,6 +75,66 @@
         
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         
+        chart.render();
+
+        //column bar chart
+        var options = {
+            chart: {
+                type: 'bar',
+               
+                toolbar: {
+                    show: true
+                }
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: '55%',
+                    endingShape: 'rounded'
+                },
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                    return val;
+                },
+                offsetY: -20,
+                style: {
+                    fontSize: '12px',
+                    colors: ["#304758"]
+                }
+            },
+            stroke: {
+                show: true,
+                width: 2,
+                colors: ['transparent']
+            },
+            series: [{
+                name: 'Sales',
+                data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
+            }],
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            },
+            yaxis: {
+                title: {
+                    text: 'Number of Sales'
+                }
+            },
+            fill: {
+                opacity: 1
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val + " sales"
+                    }
+                }
+            }
+        }
+
+        var chart = new ApexCharts(document.querySelector("#chart1"), options);
+
         chart.render();
         </script>
 </body>

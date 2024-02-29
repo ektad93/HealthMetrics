@@ -59,8 +59,15 @@ body {
     margin-bottom: 20px;
 }
 #chart {
-    max-width: 500px;
-    margin-top: 20px;
+   width: 100%;
+}
+#chart1 {
+    width: 100%;
+ }
+
+.charts-container {
+    display: flex;
+    
 }
 #filterForm {
     margin-bottom: 20px;

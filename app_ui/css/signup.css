@@ -35,14 +35,3 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #45a049;
 }
-.signup-link {
-    text-align: center;
-    margin-top: 10px;
-}
-.signup-link a {
-    color: #007bff;
-    text-decoration: none;
-}
-.signup-link a:hover {
-    text-decoration: underline;
-}

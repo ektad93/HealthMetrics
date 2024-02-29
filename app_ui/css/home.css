@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+    display: flex;
+}
+.sidebar {
+    background-color: #fff; 
+    color: #45a049;
+    width: 250px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-right: 1px solid #ddd; /* Add border to separate from content */
+    height: 100vh; /* Full height of the viewport */
+    overflow-y: auto; /* Enable vertical scroll if needed */
+}
+.sidebar h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #45a049; /* Adjust color */
+}
+.sidebar img {
+    width: 180px;
+    margin-bottom: 20px;
+}
+.menu-item {
+    margin-bottom: 10px;
+}
+.menu-item a {
+    color:  #45a049;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 8px 0;
+    transition: color 0.3s, background-color 0.3s; /* Smooth transition */
+}
+.menu-item a:hover {
+    background-color: #f0f0f0; /* Light background color on hover */
+    border-radius: 4px;
+}
+.content {
+    padding: 20px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 250px); /* Adjust width considering sidebar */
+}
+.container h2 {
+    margin-top: 0;
+}
+.box {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+#chart {
+    max-width: 500px;
+    margin-top: 20px;
+}
+#filterForm {
+    margin-bottom: 20px;
+}
+
+
+#filterForm input[type="text"],
+#filterForm input[type="date"] {
+     margin-right: 10px;
+     padding: 8px 16px;
+     font-size: 16px;
+     border: 1px solid #000; /* Black border */
+     border-radius: 4px;
+     background-color: #fff; /* White background */
+     color: #000; /* Black text */
+     transition: border-color 0.3s, background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+
+#filterForm input[type="text"]:focus,
+#filterForm input[type="date"]:focus {
+outline: none;
+border-color: #45a049; /* Change border color on focus */
+}
+#filterForm button {
+    margin-right: 10px;
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #45a049;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+#filterForm input[type="text"]:focus,
+#filterForm input[type="date"]:focus,
+#filterForm button:focus {
+    outline: none;
+}
+#filterForm button:hover {
+    background-color: #368f38;
+}
+#dataGrid {
+    display: none;
+}
+#dataGrid table {
+    width: 100%;
+    border-collapse: collapse;
+}
+#dataGrid th,
+#dataGrid td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+#dataGrid th {
+    background-color: #f0f0f0;
+}

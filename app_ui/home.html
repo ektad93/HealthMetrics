@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard with Side Menu</title>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="css\home.css">
+    <script type="text/javascript" src="js/home.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <img src="images/AGL-25-My Health Analytix.png" alt="Logo">
+        <h2>Dashboard Menu</h2>
+        <div class="menu-item"><a href="/app_ui/home.html">Home</a></div>
+        <div class="menu-item"><a href="#">Test Details</a></div>
+        <div class="menu-item"><a href="#">Export</a></div>
+        <div class="menu-item"><a href="#">Filter</a></div>
+        <div class="menu-item"><a href="#">Manage Profile</a></div>
+    </div>
+    <div class="container">
+        <div class="content">
+            <div class="box">
+                <h2>Welcome to the Health Analytix</h2>
+                <div id="chart"></div>
+            </div>
+            <div class="box">
+                <div id="filterForm">
+                    <input type="text" id="nameFilter" placeholder="Name">
+                    <input type="date" id="dateFilter">
+                    <button onclick="applyFilters()">Apply Filters</button>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box" id="dataGrid">
+                    <h2>Filtered Data</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test Name</th>
+                                <th>Low</th>
+                                <th>Medium</th>
+                                <th>High</th>
+                                <th>Date</th>
+                                <th>Test Value</th>
+                               
+                                <!-- Add more headers as needed -->
+                            </tr>
+                        </thead>
+                        <tbody id="dataBody">
+                            <!-- Data rows will be added here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+</body>
+</html>

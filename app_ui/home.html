@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard with Side Menu</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
     <link rel="stylesheet" href="css\home.css">
     <script type="text/javascript" src="js/home.js"></script>
 </head>
@@ -59,83 +60,6 @@
             </div>
         </div>
     </div>
-     <script>//line graph
-        var options = {
-            chart: {
-                type: 'line'
-            },
-            series: [{
-                name: 'sales',
-                data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-            }],
-            xaxis: {
-                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-            }
-        }
-        
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        
-        chart.render();
-
-        //column bar chart
-        var options = {
-            chart: {
-                type: 'bar',
-               
-                toolbar: {
-                    show: true
-                }
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: '55%',
-                    endingShape: 'rounded'
-                },
-            },
-            dataLabels: {
-                enabled: true,
-                formatter: function (val) {
-                    return val;
-                },
-                offsetY: -20,
-                style: {
-                    fontSize: '12px',
-                    colors: ["#304758"]
-                }
-            },
-            stroke: {
-                show: true,
-                width: 2,
-                colors: ['transparent']
-            },
-            series: [{
-                name: 'Sales',
-                data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
-            }],
-            xaxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-            },
-            yaxis: {
-                title: {
-                    text: 'Number of Sales'
-                }
-            },
-            fill: {
-                opacity: 1
-            },
-            tooltip: {
-                y: {
-                    formatter: function (val) {
-                        return val + " sales"
-                    }
-                }
-            }
-        }
-
-        var chart = new ApexCharts(document.querySelector("#chart1"), options);
-
-        chart.render();
-        </script>
+    
 </body>
 </html>

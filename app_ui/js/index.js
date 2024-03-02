@@ -1,20 +1,22 @@
-alert('dsf');
+API_URL = "http://localhost:5000/"
+
 function login(){
     $.ajax({
         contentType: "application/json",
-        url: 'http://localhost:5000/login',
+        url: API_URL + encodeURIComponent('login'),
         type: 'POST',
-        
-        data: JSON.Parse({
-            
-            username: $('username').txt,
-            password: $('password').txt
+        data: JSON.stringify({
+            username: $('#username').val(),
+            password: $('#password').val()
         }),
         success: function(response) {
-        alert('success')
+            console.log(response)
+            window.location.replace('home.html');
         },
         error: function(xhr, status, error) {
-            console.error(error);
+            result = xhr.responseJSON['message']
+            console.error(status, error);
+            alert(result);
         }
     });
 }

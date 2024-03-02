@@ -23,3 +23,23 @@ Backend Tech:  Python, Flask Framework
 
 ==============================
 We will run both front end and backend in different ports
+
+
+
+
+========================
+create your python environment
+python -m venv env
+
+install your requirements
+pip -r requirements.txt
+
+
+Activate your environment by 
+.\env\Scripts\activate
+
+Deactivate it by the below command
+deactivate
+
+
+

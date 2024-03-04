@@ -21,6 +21,11 @@ function applyFilters() {
     });
 }
 
+
+function Logout() {
+    window.location.replace('index.html');
+}
+
 $(document).ready(function() {
     //line graph
     var options = {

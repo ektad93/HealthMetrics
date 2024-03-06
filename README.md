@@ -33,12 +33,15 @@ create your python environment
 # This will create the python libraries env folder better do it Home folder itself
 python -m venv env
 
-install your requirements
-pip install -r requirements.txt
 
 
 Activate your environment by 
 .\env\Scripts\activate
+
+
+install your requirements
+pip install -r requirements.txt
+
 
 Deactivate it by the below command
 deactivate

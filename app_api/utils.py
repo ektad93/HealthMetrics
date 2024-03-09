@@ -16,9 +16,3 @@ def get_random_string():
     """
     uid = uuid.uuid4()
     return uid.hex
-
-# print(hash_password("password"))
-
-
-
-

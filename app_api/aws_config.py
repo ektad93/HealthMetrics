@@ -1,0 +1,3 @@
+AWS_ACCESS_KEY = 'AWS ACCESS KEY'
+AWS_SECRET_KEY = 'AWS SECRET KEY'
+S3_BUCKET = 'your s3 default bucket'

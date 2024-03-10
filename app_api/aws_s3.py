@@ -23,7 +23,7 @@ def get_bucket_list():
     logging.info(f"Getting s3 buckets")
     for bucket in s3_resource.buckets.all():
         result.append(bucket.name)
-    return jsonify({"success": True, "message": "successful.",
+    return jsonify({"success": True, "message": "successful",
                         "data": result}), 200
 
 
@@ -39,7 +39,7 @@ def get_object_list():
     for obj in bucket.objects.all():
         result.appedn(obj.key)
 
-    return jsonify({"success": True, "message": "successful.",
+    return jsonify({"success": True, "message": "successful",
                         "data": result}), 200
 
 
@@ -62,7 +62,7 @@ def save_s3_object():
 
     logging.info(f"Saved the input file {file_name} in the bucket {bucket_name}")
 
-    return jsonify({"success": True, "message": "successful.",
+    return jsonify({"success": True, "message": "successful",
                         "data": result}), 200
 
 @aws_s3_api.route('/delete_object', methods=['POST'])
@@ -81,7 +81,7 @@ def delete_s3_object():
 
     logging.info(f"Deleted the file {file_name} in the bucket {bucket_name}")
 
-    return jsonify({"success": True, "message": "successful.",
+    return jsonify({"success": True, "message": "successful",
                         "data": result}), 200
 
 

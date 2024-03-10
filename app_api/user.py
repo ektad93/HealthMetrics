@@ -3,10 +3,13 @@ from flask import Blueprint, request, jsonify
 from flask_cors import cross_origin
 
 from data_factory import get_data
+from aws_config import session
 
 user_api = Blueprint('user_api', __name__,
                       url_prefix='/user',)
 
+# provides a higher-level, object-oriented API for working with Amazon dynamodb resources
+dynamodb = session.resource('dynamodb')
 
 def validate_input_filters(data):
     """
@@ -16,27 +19,140 @@ def validate_input_filters(data):
         return False
     return True
 
-
-@user_api.route('/get_data', methods=['POST'])
+@user_api.route('/add_users', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def get_medical_data():
-    logging.info("calling get data method")
+def add_user_items():
+    """
+        sample input
+        {
+            "table_name": "Users",
+            "items": [{
+                    'id': 1,
+                    'name': 'John',
+                    'age': 25,
+                    'email': 'john.doe@gmail.com'
+                }]
+        }
+    """
     data = request.get_json()
+    table_name = data.get('table_name')
+    # items are rows in dynamodb table
+    items = data.get('items')
+    logging.info(f"STARTED creating dynamodb table items")
 
-    if not validate_input_filters(data):
-        return jsonify({"error": "Both name and date are required."}), 400
+    # Get a reference to the table
+    table = dynamodb.Table(table_name)
 
-    name = data['name']
-    date = data['date']
+    # Use batch_writer to put items in bulk
+    with table.batch_writer() as batch:
+        for item in items:
+            batch.put_item(Item=item)
 
-    if (not name) or (not date):
-        return jsonify({"success": True, "message": "Enter name and date."}), 400
-    try:
-        result = get_data(name, date)
-        logging.info(f"Result - {result}")
+    logging.info('Items created successfully')
 
-        logging.info("Entered name %s and date %s", name, date)
-        return jsonify({"success": True, "message": "successful.",
-                        "data": result}), 200
-    except Exception as exc:
-        logging.error(f"Error occured while retrieving data {str(exc)}")
+    return jsonify({"success": True, "message": "successful",
+                        "data": []}), 200
+
+
+@user_api.route('/list_users', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def get_all_users():
+    data = request.get_json()
+    table_name = data.get('table_name')
+
+    logging.info(f"STARTED fetching all users")
+
+    # Get a reference to the table
+    table = dynamodb.Table(table_name)
+
+    result = []
+    response = table.scan()
+    result = response.get('Items', [])
+    while 'LastEvaluatedKey' in response:
+        response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
+        result.extend(response.get('Items', []))
+
+    logging.info('Items retrieved successfully')
+
+    return jsonify({"success": True, "message": "successful",
+                    "data": result}), 200
+
+
+@user_api.route('/select_user', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def get_user_items():
+    data = request.get_json()
+    table_name = data.get('table_name')
+
+    logging.info(f"STARTED fetching a user")
+
+    # Get a reference to the table
+    table = dynamodb.Table(table_name)
+
+    item_key = {
+        'UserId': 1
+    }
+
+    # Retrieve the item
+    response = table.get_item(Key=item_key)
+    item = response.get('Item', {})
+
+    if not item:
+        logging.info('Item Not Found')
+        return jsonify({"success": False, "message": "fail",
+                        "data": {}}), 404
+
+    logging.info('Item retrieved successfully')
+
+    return jsonify({"success": True, "message": "successful",
+                    "data": item}), 200
+
+
+
+@user_api.route('/update_user', methods=['GET'])
+@cross_origin(supports_credentials=True)
+def update_user():
+    data = request.get_json()
+    table_name = data.get('table_name')
+
+    logging.info(f"STARTED fetching a user")
+
+    # Get a reference to the table
+    table = dynamodb.Table(table_name)
+
+    item_key = {
+        'UserId': 1
+    }
+
+    # Specify the attributes to update
+    update_expression = "SET #name = :name_value, #email = :email_value"
+    expression_attribute_names = {
+        '#name': 'name',
+        '#email': 'email'
+    }
+    expression_attribute_values = {
+        ':name_value': 'Jane',  # Updated name
+        ':email_value': 'jane.doe@example.com'  # Updated email
+    }
+
+    # Update the item
+    response = table.update_item(
+        Key=item_key,
+        UpdateExpression=update_expression,
+        ExpressionAttributeNames=expression_attribute_names,
+        ExpressionAttributeValues=expression_attribute_values,
+        ReturnValues="ALL_NEW"  # Specify to return the updated item
+    )
+
+    # Retrieve the item
+    updated_item = response.get('Attributes', None)
+
+    if not updated_item:
+        logging.info('Item Not updated')
+        return jsonify({"success": False, "message": "fail",
+                        "data": {}}), 404
+
+    logging.info('Item updated successfully')
+
+    return jsonify({"success": True, "message": "successful",
+                    "data": updated_item}), 200

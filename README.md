@@ -51,6 +51,16 @@ python main.py
 
 
 
+================================
+
+
+query condtion expression in AWS dynamodb
+
+
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.KeyConditionExpressions.html
+
+
+
 
 ==================== Dynamo DB =================
 

@@ -4,19 +4,17 @@ from flask import Blueprint, request, jsonify, send_file
 from flask_cors import cross_origin
 import boto3
 
-from aws_config import AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET
+from aws_config import S3_BUCKET
 
 
 aws_s3_api = Blueprint('aws_s3_api', __name__,
                         url_prefix='/aws_s3',)
-
 
 # low-level client interface to Amazon S3. It directly maps to the Amazon S3 API
 s3_client = boto3.client('s3')
 
 # provides a higher-level, object-oriented API for working with Amazon S3 resources
 s3_resource = boto3.resource('s3')
-
 
 @aws_s3_api.route('/list_buckets', methods=['GET'])
 @cross_origin(supports_credentials=True)

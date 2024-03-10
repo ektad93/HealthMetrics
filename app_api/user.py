@@ -1,9 +1,9 @@
 import logging
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from flask_cors import cross_origin
 
-from data_factory import get_data
 from aws_config import session
+from utils import success_response
 
 user_api = Blueprint('user_api', __name__,
                       url_prefix='/user',)
@@ -50,8 +50,7 @@ def add_user_items():
 
     logging.info('Items created successfully')
 
-    return jsonify({"success": True, "message": "successful",
-                        "data": []}), 200
+    return success_response([])
 
 
 @user_api.route('/list_users', methods=['GET'])
@@ -74,8 +73,7 @@ def get_all_users():
 
     logging.info('Items retrieved successfully')
 
-    return jsonify({"success": True, "message": "successful",
-                    "data": result}), 200
+    return success_response(result)
 
 
 @user_api.route('/select_user', methods=['GET'])
@@ -99,13 +97,11 @@ def get_user_items():
 
     if not item:
         logging.info('Item Not Found')
-        return jsonify({"success": False, "message": "fail",
-                        "data": {}}), 404
+        abort(404, 'Item Not Found')
 
     logging.info('Item retrieved successfully')
 
-    return jsonify({"success": True, "message": "successful",
-                    "data": item}), 200
+    return success_response(item)
 
 
 
@@ -149,10 +145,8 @@ def update_user():
 
     if not updated_item:
         logging.info('Item Not updated')
-        return jsonify({"success": False, "message": "fail",
-                        "data": {}}), 404
+        abort(500, 'Item Not updated')
 
     logging.info('Item updated successfully')
 
-    return jsonify({"success": True, "message": "successful",
-                    "data": updated_item}), 200
+    return success_response(updated_item)

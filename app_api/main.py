@@ -1,6 +1,6 @@
 import logging
 
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -17,6 +17,20 @@ app.register_blueprint(aws_s3_api)
 app.register_blueprint(aws_dynamodb_api)
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S', level=logging.INFO)
+
+@app.errorhandler(400)
+@app.errorhandler(401)
+@app.errorhandler(404)
+@app.errorhandler(500)
+@app.errorhandler(Exception)
+def not_found(error):
+    error_message = getattr(error, 'description', '')
+    error_code = error.code if hasattr(error, 'code') else 500
+
+    if not error_message:
+        error_message = str(error)
+
+    return jsonify({"success": False, "message": error_message}), error_code
 
 
 if __name__ == '__main__':

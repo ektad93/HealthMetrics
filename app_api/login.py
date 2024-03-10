@@ -1,8 +1,8 @@
 import logging
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, abort
 from flask_cors import cross_origin
 
-from utils import hash_password
+from utils import hash_password, success_response
 
 login_api = Blueprint('login_api', __name__,
                        url_prefix='/login',)
@@ -28,17 +28,16 @@ def validate_login_data(data):
 def login():
     data = request.get_json()
     if not validate_login_data(data):
-        return jsonify({"error": "Both username and password are required."}), 400
+        return abort(400, "Both username and password are required.")
 
     username = data['username']
     password = data['password']
 
     if (not username) or (not password):
-        return jsonify({"success": True, "message": "Enter username and password."}), 400
+        return abort(400, "Enter username and password")
 
     if username in USER_DETAILS and USER_DETAILS[username] == hash_password(password):
         logging.info("Successful login for the user --> %s", username)
-        return jsonify({"success": True, "message": "Login successful."}), 200
+        return success_response("Login successful. We will provide a token in future")
     else:
-        return jsonify({"success": False, "message": "Invalid username or password."}), 401
-
+        return abort(401, "Invalid username or password")

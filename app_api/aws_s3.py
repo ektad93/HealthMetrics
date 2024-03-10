@@ -5,6 +5,7 @@ from flask_cors import cross_origin
 import boto3
 
 from aws_config import S3_BUCKET
+from utils import success_response
 
 
 aws_s3_api = Blueprint('aws_s3_api', __name__,
@@ -23,8 +24,7 @@ def get_bucket_list():
     logging.info(f"Getting s3 buckets")
     for bucket in s3_resource.buckets.all():
         result.append(bucket.name)
-    return jsonify({"success": True, "message": "successful",
-                        "data": result}), 200
+    return success_response(result)
 
 
 @aws_s3_api.route('/list_objects', methods=['GET'])
@@ -39,8 +39,8 @@ def get_object_list():
     for obj in bucket.objects.all():
         result.appedn(obj.key)
 
-    return jsonify({"success": True, "message": "successful",
-                        "data": result}), 200
+    return success_response(result)
+
 
 
 @aws_s3_api.route('/add_object', methods=['POST'])
@@ -62,8 +62,7 @@ def save_s3_object():
 
     logging.info(f"Saved the input file {file_name} in the bucket {bucket_name}")
 
-    return jsonify({"success": True, "message": "successful",
-                        "data": result}), 200
+    return success_response(result)
 
 @aws_s3_api.route('/delete_object', methods=['POST'])
 @cross_origin(supports_credentials=True)
@@ -81,8 +80,7 @@ def delete_s3_object():
 
     logging.info(f"Deleted the file {file_name} in the bucket {bucket_name}")
 
-    return jsonify({"success": True, "message": "successful",
-                        "data": result}), 200
+    return success_response(result)
 
 
 @aws_s3_api.route('/download_object', methods=['GET'])

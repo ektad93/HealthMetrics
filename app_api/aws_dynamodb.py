@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 from flask_cors import cross_origin
 
 from aws_config import session
+from utils import success_response
 
 aws_dynamodb_api = Blueprint('aws_dynamodb_api', __name__,
                               url_prefix='/aws_dynamodb')
@@ -17,8 +18,8 @@ dynamodb = session.resource('dynamodb')
 def get_all_tables():
     logging.info(f"Getting dynamodb tables")
     tables = list(dynamodb.tables.all())
-    return jsonify({"success": True, "message": "successful",
-                    "data": tables}), 200
+    return success_response(tables)
+
 
 
 @aws_dynamodb_api.route('/delete_table', methods=['POST'])
@@ -39,5 +40,4 @@ def delete_dynamodb_table():
 
     logging.info(f"Successfully deleted table {table_name}")
 
-    return jsonify({"success": True, "message": "successful",
-                        "data": []}), 200
+    return success_response([])

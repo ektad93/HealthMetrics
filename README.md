@@ -64,47 +64,4 @@ https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.KeyCondit
 
 ==================== Dynamo DB =================
 
-<!-- 
-# result = [{'Name': 'John Doe', 'Date of Birth': '1975-03-15', 'Gender': 'Male'},
-#            {'Name': 'Smith', 'Date of Birth': '1975-03-15', 'Gender': 'Male'}]
-
-# final_result = []
-# for i in result:
-#     final_result.append(i['Name'])
-
-# print(final_result)
-
-# postgres
-# dynamodb
-
-
-# User Table
-
-# Tests Table
-
-# Segment Table
-# ID TestID Segment Name
-
-# TESTS Table
-
-# {
-#     "Date": "2024-01-02",
-#     "User_ID": 12,
-#     "Test_details": {
-#         "name": "WBC",
-#         "segment_id": 34,
-#         "test_thresholds": {
-#             "low": 12,
-#             "high": 50,
-#             "medium": 30
-#         },
-#         "test_result": 456
-#     }
-# } -->
-
-
-<!-- 
-select * from Employee limit 1;
-
-db.Employee.findOne()
-db.Employee.distinct('Name', {}) -->
+aws dynamodb list-tables --region us-east-2

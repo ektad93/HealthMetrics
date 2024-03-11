@@ -17,7 +17,7 @@ dynamodb = session.resource('dynamodb')
 @cross_origin(supports_credentials=True)
 def get_all_tables():
     logging.info(f"Getting dynamodb tables")
-    tables = list(dynamodb.tables.all())
+    tables = [str(i) for i in list(dynamodb.tables.all())]
     return success_response(tables)
 
 

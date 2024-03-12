@@ -5,28 +5,24 @@ from flask_cors import cross_origin
 from aws_config import session
 from utils import success_response
 
-user_api = Blueprint('user_api', __name__,
-                      url_prefix='/user',)
+test_master_api = Blueprint('test_master_api', __name__,
+                            url_prefix='/test',)
 
 # provides a higher-level, object-oriented API for working with Amazon dynamodb resources
 dynamodb = session.resource('dynamodb')
 
-USER_TABLE = "usersTable"
+TEST_MASTER = "Tests_Information"
 
-@user_api.route('/add_users', methods=['POST'])
+
+@test_master_api.route('/add_tests', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def add_user_items():
+def add_new_test_items():
     # sample input below
     """
        {
         "items": [
                     {
-                        "Email": "test@alphagenesislabs.com",
-                        "First_Name": "test",
-                        "Last_Name": "TestLast",
-                        "Password": "",
-                        "Profile_pic": "",
-                        "User_ID": "3"
+                        "Name": "ECG",
                     }
                 ]
         }
@@ -37,7 +33,7 @@ def add_user_items():
     logging.info(f"STARTED creating dynamodb table items")
 
     # Get a reference to the table
-    table = dynamodb.Table(USER_TABLE)
+    table = dynamodb.Table(TEST_MASTER)
 
     # Use batch_writer to put items in bulk
     with table.batch_writer() as batch:
@@ -49,11 +45,11 @@ def add_user_items():
     return success_response([])
 
 
-@user_api.route('/list_users', methods=['GET'])
+@test_master_api.route('/list_tests', methods=['GET'])
 @cross_origin(supports_credentials=True)
-def get_all_users():
-    table_name = USER_TABLE
-    logging.info(f"STARTED fetching all users")
+def get_all_tests():
+    table_name = TEST_MASTER
+    logging.info(f"STARTED fetching all tests")
 
     # Get a reference to the table
     table = dynamodb.Table(table_name)
@@ -71,19 +67,19 @@ def get_all_users():
     return success_response(result)
 
 
-@user_api.route('/select_user', methods=['GET'])
+@test_master_api.route('/select_test', methods=['GET'])
 @cross_origin(supports_credentials=True)
-def get_user_items():
+def get_test_items():
 
     data = request.get_json()
-    user_id = data.get('User_ID')
-    logging.info(f"STARTED fetching a user")
+    test_id = data.get('TestID')
+    logging.info(f"STARTED fetching a test")
 
     # Get a reference to the table
-    table = dynamodb.Table(USER_TABLE)
+    table = dynamodb.Table(TEST_MASTER)
 
     item_key = {
-        'User_ID': user_id
+        'Test_ID': test_id
     }
 
     # Retrieve the item
@@ -99,32 +95,29 @@ def get_user_items():
     return success_response(item)
 
 
-@user_api.route('/update_user', methods=['POST'])
+@test_master_api.route('/update_test', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def update_user():
+def update_test():
     data = request.get_json()
-    user_id = data.get('User_ID')
+    test_id = data.get('Test_ID')
     updated_name = data.get('updated_name')
-    updated_email = data.get('updated_email')
 
-    logging.info(f"STARTED fetching a user")
+    logging.info(f"STARTED fetching a test")
 
     # Get a reference to the table
-    table = dynamodb.Table(USER_TABLE)
+    table = dynamodb.Table(TEST_MASTER)
 
     item_key = {
-        'User_ID': user_id
+        'Test_ID': test_id
     }
 
     # Specify the attributes to update
-    update_expression = "SET #name = :name_value, #email = :email_value"
+    update_expression = "SET #name = :name_value"
     expression_attribute_names = {
-        '#name': 'First_Name',
-        '#email': 'Email'
+        '#name': 'Test_Name',
     }
     expression_attribute_values = {
-        ':name_value': updated_name,
-        ':email_value': updated_email
+        ':name_value': updated_name
     }
 
     # Update the item
@@ -148,19 +141,19 @@ def update_user():
     return success_response(updated_item)
 
 
-@user_api.route('/delete_user', methods=['POST'])
+@test_master_api.route('/delete_test', methods=['POST'])
 @cross_origin(supports_credentials=True)
-def delete_user():
+def delete_test():
     data = request.get_json()
-    user_id = data.get('User_ID')
+    test_id = data.get('Test_ID')
 
-    logging.info("STARTED deleting a user")
+    logging.info("STARTED deleting a Test")
 
     # Get a reference to the table
-    table = dynamodb.Table(USER_TABLE)
+    table = dynamodb.Table(TEST_MASTER)
 
     item_key = {
-        'User_ID': user_id
+        'Test_ID': test_id
     }
 
     # Delete the item

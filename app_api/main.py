@@ -10,11 +10,13 @@ from login import login_api
 from user import user_api
 from aws_s3 import aws_s3_api
 from aws_dynamodb import aws_dynamodb_api
+from test_master import test_master_api
 
 app.register_blueprint(login_api)
 app.register_blueprint(user_api)
 app.register_blueprint(aws_s3_api)
 app.register_blueprint(aws_dynamodb_api)
+app.register_blueprint(test_master_api)
 
 logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%Y-%m-%d %H:%M:%S', level=logging.INFO)
 

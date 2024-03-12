@@ -63,5 +63,6 @@ https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Query.KeyCondit
 
 
 ==================== Dynamo DB =================
+pip install awscli
 
 aws dynamodb list-tables --region us-east-2

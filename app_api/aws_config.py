@@ -1,0 +1,15 @@
+import boto3
+
+AWS_ACCESS_KEY = 'ASIAZIEXEQOXREVKSDVT'
+AWS_SECRET_KEY = 'G+zXKIvUVh/IyawC8uG6rd4CK54jep0KPMbhbIpW'
+AWS_SESSION_TOKEN = 'IQoJb3JpZ2luX2VjEC0aCXVzLWVhc3QtMSJHMEUCIQC7zCfqMfBL/1Y5JbNEyJ8lt37pZmqd9GXfch9Y1Z5h9gIgcbojm4fnjFHQx296OS3MS3NieD3SfSOXg+yIB4JQxL0q6wIINhABGgw2MzU5NzIxMjU2MTUiDAErLzWy7ZyFUPKz2yrIAo2Ho1S+vh0j9duKnP1JltVj/GctzDLv9pk6he+7PF+SoyWUimak+6bVASC/tP2/qf6uplZwAoba75z+vRbGggyPYM05oxGGDQHrdhlOf59TdT0fpfnpb2Nd0n4s/Vb82wr5S9+FE4pxYBOb70gR48i1zuQrxNegiyZtvPp3bUwDlLca4UjEqgpjM2k3UUnrE2fQDpjAsySJjWZIRXnYjEKdJxaHzoJaocwv5BvGaJoPhqBU0V54ao82Gt0ttohyc+gMhce5wy5+jkkTdoDlvlCQMlrcM8uMgyzbUjpi18eAqXe1sBxiIbDYjZWGBOVCmmvryfD+KXc0Jr58vDLKlk7sYB90F90BodBt7xnqOTAMIMq6sqnuNxrHyLd5YXhuxKYfhO4uqaZNdPyNoUEhUi3iGS4cKkvuz5JkfOmgBxEdd7WI5WZOJH0ww+G9rwY6pwGQuoObAgNVkuWWdtmVa8O8la0xH+123OxeprFJkYPWjhAdeFyhLwqn3VkdGskRJp5mwktpkF8eDqnQRM3N1d5JlwP0X+Z1XANh+GPzszKHT5gerWvju8MltowKu4alqv6jMKw3fub1xmDVQhaZeT/CgrzMbq07HienXXlyFXNQQMmy+qIhLWFnd2+el9tTWlcyOB3kFEyn+fMhtZG4fFG1p9k6PJcLAA=='
+S3_BUCKET = 'HEALTH_APP_BUCKET'
+DEAFULT_REGION = 'us-east-2'
+
+
+session = boto3.Session(
+    aws_access_key_id=AWS_ACCESS_KEY,
+    aws_secret_access_key=AWS_SECRET_KEY,
+    aws_session_token = AWS_SESSION_TOKEN,
+    region_name=DEAFULT_REGION
+)

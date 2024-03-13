@@ -1,6 +1,8 @@
 import bcrypt
 import uuid
 
+from flask import jsonify
+
 def hash_password(input_pwd):
     """
         generate the hash password for your password
@@ -17,8 +19,8 @@ def get_random_string():
     uid = uuid.uuid4()
     return uid.hex
 
-# print(hash_password("password"))
-
-
-
-
+def success_response(data, metadata=None):
+    response = {"success": True, "message": "success", "data": data}
+    if metadata is not None:
+        response["metadata"] = metadata
+    return jsonify(response)

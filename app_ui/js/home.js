@@ -1,4 +1,4 @@
-API_URL = "http://localhost:5000/"
+API_URL = "http://localhost:5000/user/"
 
 function applyFilters() {
     var nameFilter = document.getElementById('nameFilter').value;
